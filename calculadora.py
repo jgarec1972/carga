@@ -1,6 +1,6 @@
 # calculadora.py
 # Este archivo contiene la lógica de negocio y el Quality Gate (las pruebas).
-
+#
 # --- LÓGICA DE NEGOCIO ---
 def sumar(a, b):
     """Suma dos números."""
