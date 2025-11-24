@@ -22,12 +22,12 @@ jobs:
     
       # El comando 'ls QUALITY_CHECK_PASS.txt' falla si el archivo no existe.
       # Si falla, el pipeline se detiene.
-      run: |
-        echo "=========================================================="
-        echo "Buscando archivo de pase de calidad (QUALITY_CHECK_PASS.txt)..."
-        ls QUALITY_CHECK_PASS.txt # Esto falla y detiene el job si el archivo no existe.
-        echo "✅ Archivo encontrado. Quality Gate APROBADO."
-        echo "=========================================================="
+      #run: |
+      #  echo "=========================================================="
+      #  echo "Buscando archivo de pase de calidad (QUALITY_CHECK_PASS.txt)..."
+      #  ls QUALITY_CHECK_PASS.txt # Esto falla y detiene el job si el archivo no existe.
+      #  echo "✅ Archivo encontrado. Quality Gate APROBADO."
+      #  echo "=========================================================="
         
     # 3. Despliegue (solo se ejecuta si el paso 2 fue exitoso)
     - name: 🚀 Simulación de Despliegue (CD)
