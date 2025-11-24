@@ -1,39 +1,46 @@
-# .github/workflows/gatekeeper.yml
-# Pipeline muy simple que usa la existencia de un archivo como Quality Gate.
+# .github/workflows/ci_pipeline.yml
+# Flujo de CI/CD que corre con cada cambio en la rama principal.
 
-name: 🔑 Gatekeeper Sencillo de CI/CD
+name: 🧑‍💻 Quality Gate y Despliegue
 
-# Se ejecuta en cada push a la rama principal
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # Se dispara con cada cambio en la rama principal
 
 jobs:
-  check_and_deploy:
+  build_test_deploy:
     runs-on: ubuntu-latest
     
     steps:
     
-    # 1. Bajar el código
+    # 1. Bajar el código del repositorio
     - name: 📥 Clonar Repositorio
       uses: actions/checkout@v4
       
-    # 2. QUALITY GATE (Verifica si el archivo de pase de calidad existe)
-    
-      # El comando 'ls QUALITY_CHECK_PASS.txt' falla si el archivo no existe.
-      # Si falla, el pipeline se detiene.
-      #run: |
-      #  echo "=========================================================="
-      #  echo "Buscando archivo de pase de calidad (QUALITY_CHECK_PASS.txt)..."
-      #  ls QUALITY_CHECK_PASS.txt # Esto falla y detiene el job si el archivo no existe.
-      #  echo "✅ Archivo encontrado. Quality Gate APROBADO."
-      #  echo "=========================================================="
+    # 2. Configurar Python 3.10
+    - name: 🐍 Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
         
-    # 3. Despliegue (solo se ejecuta si el paso 2 fue exitoso)
-    #- name: 🚀 Simulación de Despliegue (CD)
-     # if: success()
-      #run: |
-       # echo "=========================================================="
-       # echo "✅ Quality Gate PASADO. Iniciando Despliegue Continuo."
-       # echo "🎉 Despliegue completado con éxito."
-       # echo "===========================
+    # 3. Quality Gate: Ejecutar Pruebas
+    - name: 🚦 Quality Gate: Ejecutar Pruebas
+      # Este paso ejecuta el script de pruebas de la calculadora.
+      # Se incluye el comando ls -la para diagnóstico de ubicación.
+      run: |
+        echo "=========================================================="
+        echo "🔍 Diagnóstico: Listado de archivos en la raíz del job (debe aparecer calculadora.py):"
+        ls -la # Comando para listar el contenido del directorio
+        echo "=========================================================="
+        # Comando que ejecuta las pruebas. Falla si calculadora.py no existe o si las pruebas fallan.
+        python calculadora.py
+
+    # 4. Despliegue (solo si el Quality Gate fue exitoso)
+    - name: 🚀 Simulación de Despliegue (CD)
+      # La condición IF y el RUN deben estar alineados correctamente en YAML.
+      if: success()
+      run: |
+        echo "=========================================================="
+        echo "✅ Quality Gate Aprobado. Iniciando Despliegue."
+        echo "🎉 El código pasa a producción."
+        echo "=========================================================="
