@@ -30,10 +30,10 @@ jobs:
       #  echo "=========================================================="
         
     # 3. Despliegue (solo se ejecuta si el paso 2 fue exitoso)
-    - name: 🚀 Simulación de Despliegue (CD)
-      if: success()
-      run: |
-        echo "=========================================================="
-        echo "✅ Quality Gate PASADO. Iniciando Despliegue Continuo."
-        echo "🎉 Despliegue completado con éxito."
-        echo "===========================
+    #- name: 🚀 Simulación de Despliegue (CD)
+     # if: success()
+      #run: |
+       # echo "=========================================================="
+       # echo "✅ Quality Gate PASADO. Iniciando Despliegue Continuo."
+       # echo "🎉 Despliegue completado con éxito."
+       # echo "===========================
