@@ -28,10 +28,7 @@ jobs:
       run: python calculadora.py
 
     # PASO 4: Simulación de Despliegue (SOLO si el Quality Gate pasó)
-    - name: 🚀 Simulación de Despliegue (CD)
-      if: success()
-      run: |
-        echo "=========================================================="
+- name: 🚀 Simulación de Despliegue (CD)       if: success()     run: | # <--- ¡Este 'run' estaba mal alineado!       echo "...""=========================================================="
         echo "✅ Quality Gate Aprobado. Iniciando Despliegue."
         echo "🎉 El código pasa a producción."
         echo "=========================================================="
