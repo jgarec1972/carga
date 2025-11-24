@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
       
     # 2. QUALITY GATE (Verifica si el archivo de pase de calidad existe)
-    #- name: 🚦 Quality Gate: Verificar Calidad
+    
       # El comando 'ls QUALITY_CHECK_PASS.txt' falla si el archivo no existe.
       # Si falla, el pipeline se detiene.
       run: |
